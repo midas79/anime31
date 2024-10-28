@@ -16,7 +16,7 @@ const Page = async () => {
 
   // Fetch data anime terbaru dengan parameter tambahan
   const newAnimeResponse = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/seasons/now`
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/seasons/now?limit=8`
     
   );
   const newAnime = await newAnimeResponse.json();
@@ -36,9 +36,9 @@ const Page = async () => {
       {/* Karakter Terpopuler */}
       <section>
         <Header
-          title="Terbaru"
-          linkTitle="Ikuti Sekarang"
-          linkHref="/terbaru"
+          title="Karakter Terpopuler"
+          linkTitle="Lihat Semua"
+          linkHref="/charpopuler"
         />
         <AnimeList api={topCharacters} />
       </section>
@@ -47,8 +47,8 @@ const Page = async () => {
       <section>
         <Header
           title="Anime Terbaru"
-          linkTitle="Tonton Sekarang"
-          linkHref="/anime-terbaru"
+          linkTitle="Lihat Semua"
+          linkHref="/newanime"
         />
         <AnimeList api={newAnime} />
       </section>

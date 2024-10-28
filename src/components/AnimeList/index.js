@@ -7,10 +7,10 @@ const AnimeList = ({ api }) => {
       {/* Check if api and api.data exist and if api.data is an array with elements */}
       {api && Array.isArray(api.data) && api.data.length > 0 ? (
         api.data.map((anime) => (
-          <Link 
-            key={anime.mal_id} 
-            href={`/${anime.mal_id}`} 
-            className="block relative p-4 border rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl overflow-hidden group"
+          <Link
+            key={anime.mal_id}
+            href={`/${anime.mal_id}`}
+            className="bg-accent block relative p-4 border rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl overflow-hidden group"
           >
             <Image
               src={anime.images.webp.image_url}
@@ -19,12 +19,16 @@ const AnimeList = ({ api }) => {
               height={600}
               className="w-full h-48 object-cover rounded-t-lg group-hover:opacity-90 transition-opacity duration-300"
             />
-            <h3 className="font-bold text-lg mt-2 text-center text-gray-800 group-hover:text-blue-500 transition-colors duration-300">{anime.title}</h3>
+            <h3 className="font-bold text-lg mt-2 text-center text-primary group-hover:text-blue-500 justify-center items-center transition-colors duration-300">
+              {anime.title}
+            </h3>
             <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-40 group-hover:opacity-60 transition-opacity duration-300"></div>
           </Link>
         ))
       ) : (
-        <p className="text-center col-span-full">Loading or no data available.</p>
+        <p className="text-center col-span-full">
+          Loading or no data available.
+        </p>
       )}
     </div>
   );

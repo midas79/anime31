@@ -8,7 +8,7 @@
     box-sizing: border-box;
 }
 
-img{
+img {
     transition: 0.3s ease all;
     -webkit-transition: 0.3s ease all;
     -moz-transition: 0.3s ease all;
@@ -19,3 +19,23 @@ img{
 img:hover {
     scale: 102%;
 }
+
+.loading {
+    width: 69px;
+    height: 36px;
+    --c:radial-gradient(farthest-side,#5D737E 90%,#0000);
+    background:var(--c), var(--c), var(--c), var(--c);
+    background-size: 12px 12px;
+    background-repeat: no-repeat;
+    animation:d3 1s infinite linear; 
+  }
+  
+  @keyframes d3 {
+    0%     {background-position: calc(0*100%/3) 50% ,calc(1*100%/3) 50% ,calc(2*100%/3) 50% ,calc(3*100%/3) 50% }
+    16.67% {background-position: calc(0*100%/3) 0   ,calc(1*100%/3) 50% ,calc(2*100%/3) 50% ,calc(3*100%/3) 50% }
+    33.33% {background-position: calc(0*100%/3) 100%,calc(1*100%/3) 0   ,calc(2*100%/3) 50% ,calc(3*100%/3) 50% }
+    50%    {background-position: calc(0*100%/3) 50% ,calc(1*100%/3) 100%,calc(2*100%/3) 0   ,calc(3*100%/3) 50% }
+    66.67% {background-position: calc(0*100%/3) 50% ,calc(1*100%/3) 50% ,calc(2*100%/3) 100%,calc(3*100%/3) 0   }
+    83.33% {background-position: calc(0*100%/3) 50% ,calc(1*100%/3) 50% ,calc(2*100%/3) 50% ,calc(3*100%/3) 100%}
+    100%   {background-position: calc(0*100%/3) 50% ,calc(1*100%/3) 50% ,calc(2*100%/3) 50% ,calc(3*100%/3) 50% }
+  }

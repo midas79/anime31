@@ -2,14 +2,28 @@ import AnimeList from "@/components/AnimeList";
 import Header from "@/components/AnimeList/Header";
 
 const Page = async () => {
-  const response = await fetch(
+  // Fetch data anime terpopuler
+  const animeResponse = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/top/anime?limit=8`
   );
-  const topAnime = await response.json();
+  const topAnime = await animeResponse.json();
+
+  // Fetch data karakter terpopuler
+  const characterResponse = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/top/characters?limit=8`
+  );
+  const topCharacters = await characterResponse.json();
+
+  // Fetch data anime terbaru dengan parameter tambahan
+  const newAnimeResponse = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/seasons/now`
+    
+  );
+  const newAnime = await newAnimeResponse.json();
 
   return (
     <>
-    {/*anime terpopuler*/}
+      {/* Anime Terpopuler */}
       <section>
         <Header
           title="Paling Populer"
@@ -19,14 +33,24 @@ const Page = async () => {
         <AnimeList api={topAnime} />
       </section>
 
-      {/*anime terbaru*/}
+      {/* Karakter Terpopuler */}
       <section>
         <Header
           title="Terbaru"
           linkTitle="Ikuti Sekarang"
           linkHref="/terbaru"
         />
-        <AnimeList api={topAnime} />
+        <AnimeList api={topCharacters} />
+      </section>
+
+      {/* Anime Terbaru */}
+      <section>
+        <Header
+          title="Anime Terbaru"
+          linkTitle="Tonton Sekarang"
+          linkHref="/anime-terbaru"
+        />
+        <AnimeList api={newAnime} />
       </section>
     </>
   );

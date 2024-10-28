@@ -12,6 +12,12 @@ module.exports = {
         foreground: "var(--foreground)",
       },
     },
+    colors: {
+      primary: '#ebeeff',
+      accent: '#325fc0',
+      secondary: '#393e46',
+      dark: '#222831',
+    }
   },
   plugins: [],
 };

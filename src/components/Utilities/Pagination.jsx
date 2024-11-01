@@ -1,20 +1,39 @@
+import { useEffect, useState } from "react";
+
 const Pagination = ({ page, lastPage, setPage }) => {
+  const [isPageInitialized, setIsPageInitialized] = useState(false);
+
   const scrollTop = () => {
     scrollTo({
       behavior: "auto",
-      top: "0"
-    })
+      top: "0",
+    });
   };
 
   const handleNextPage = () => {
-    setPage((prevState) => prevState + 1);
+    const nextPage = page + 1;
+    setPage(nextPage);
+    localStorage.setItem("currentPage", nextPage);
     scrollTop();
   };
 
   const handlePrevPage = () => {
-    setPage((prevState) => prevState - 1);
+    const prevPage = page - 1;
+    setPage(prevPage);
+    localStorage.setItem("currentPage", prevPage);
     scrollTop();
   };
+
+  useEffect(() => {
+    // Mengambil nilai halaman dari localStorage saat komponen pertama kali di-mount
+    const savedPage = parseInt(localStorage.getItem("currentPage"), 10);
+    if (savedPage && savedPage > 0) {
+      setPage(savedPage);
+    }
+    setIsPageInitialized(true); // Menandai bahwa inisialisasi halaman telah selesai
+  }, [setPage]);
+
+  if (!isPageInitialized) return null; // Menunggu sampai page terinisialisasi sebelum rendering
 
   return (
     <div className="flex justify-center items-center py-4 px-2 gap-4 text-primary text-2xl">

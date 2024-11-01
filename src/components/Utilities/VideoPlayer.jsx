@@ -25,7 +25,7 @@ const VideoPlayer = ({ youtubeId }) => {
         </button>
         <YouTube
           videoId={youtubeId}
-          onReady={(event) => event.target.pause.pauseVideo()}
+          onReady={(event) => event.target.pauseVideo()}
           opts={option}
           onError={() => alert("Video is broken, please try another.")}
         />

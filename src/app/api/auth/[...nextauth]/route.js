@@ -12,7 +12,7 @@ const clientSecret =
     ? process.env.GITHUB_SECRET_Jo
     : process.env.GITHUB_SECRET_Diyon;
 
-const authOption = {
+export const authOptions = {  // Ekspor secara eksplisit
   providers: [
     githubAuth({
       clientId: clientId,
@@ -22,6 +22,6 @@ const authOption = {
   secret: process.env.NEXTAUTH_SECRET,
 };
 
-const handler = NextAuth(authOption);
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };

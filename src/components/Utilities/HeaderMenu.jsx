@@ -1,9 +1,7 @@
 const HeaderMenu = ({ title }) => {
   return (
-    <div>
-      <div className="p-8">
-        <h3 className="text-center text-2xl text-primary">{title}</h3>
-      </div>
+    <div className="shell py-8">
+      <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-ink">{title}</h1>
     </div>
   );
 };

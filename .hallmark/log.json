@@ -1,0 +1,40 @@
+[
+ {
+  "shape": "app screen (catalog + record)",
+  "theme": "Spotify Console (design.md, by request)",
+  "axes": [
+   "dens poster grid",
+   "rank column",
+   "single green signal"
+  ],
+  "hero": "none (app shell)",
+  "nav": "masthead, search inline, one action",
+  "footer": "statement + link columns",
+  "imagery": "Jikan key art in slot frames",
+  "photos": [],
+  "entry": "redesign full",
+  "fingerprint": [
+   "grid",
+   "record",
+   "no hero",
+   "masthead",
+   "statement footer",
+   "app controls"
+  ],
+  "sections": [
+   "hero banner",
+   "paling populer grid",
+   "rekomendasi grid"
+  ],
+  "signature": "dens poster grid with score chip",
+  "waived": [
+   "7b",
+   "22"
+  ],
+  "prompt": "redesign UI project anime list",
+  "mode": "redesign",
+  "depth": "full",
+  "scope": "site",
+  "date": "2026-11-18"
+ }
+]

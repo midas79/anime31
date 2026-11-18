@@ -1,50 +1,35 @@
 "use client";
 import { useState } from "react";
 import YouTube from "react-youtube";
+import { Play, X } from "@phosphor-icons/react";
 
 const VideoPlayer = ({ youtubeId }) => {
-  const [isOpen, setIsOpen] = useState(true);
-
-  const handleVideoPLayer = () => {
-    setIsOpen((prevState) => !prevState);
-  };
-
-  const option = {
-    width: "300",
-    height: "250",
-  };
-
-  const Player = () => {
-    return (
-      <div className="fixed bottom-2 right-2">
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <div className={`z-50 ${isOpen ? "fixed inset-0 bg-ground/95 flex items-center justify-center p-4" : ""}`}>
+      {isOpen ? (
+        <div className="relative w-full max-w-3xl aspect-video bg-ground rounded-lg overflow-hidden border border-rule">
+          <button
+            type="button"
+            onClick={() => setIsOpen(false)}
+            className="absolute top-3 right-3 z-10 w-9 h-9 bg-surface rounded-full flex items-center justify-center text-ink hover:bg-raised transition-colors"
+            aria-label="Tutup trailer"
+          >
+            <X size={18} />
+          </button>
+          <YouTube videoId={youtubeId} opts={{ width: "100%", height: "100%", playerVars: { autoplay: 1 } }} className="w-full h-full" />
+        </div>
+      ) : (
         <button
-          onClick={handleVideoPLayer}
-          className="text-primary float-right bg-secondary px-3 mb-1"
+          type="button"
+          onClick={() => setIsOpen(true)}
+          className="btn btn-primary"
         >
-          X
+          <Play size={16} weight="fill" /> Tonton trailer
         </button>
-        <YouTube
-          videoId={youtubeId}
-          onReady={(event) => event.target.pauseVideo()}
-          opts={option}
-          onError={() => alert("Video is broken, please try another.")}
-        />
-      </div>
-    );
-  };
-
-  const ButtonOpenPlayer = () => {
-    return (
-      <button
-        onClick={handleVideoPLayer}
-        className="rounded fixed p-1.5 bottom-5 right-5 w-32 bg-primary text-dark text-xl hover:bg-accent transition-all shadow-xl"
-      >
-        Tonton Trailer
-      </button>
-    );
-  };
-
-  return isOpen ? <Player /> : <ButtonOpenPlayer />;
+      )}
+    </div>
+  );
 };
 
 export default VideoPlayer;

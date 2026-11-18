@@ -1,43 +1,152 @@
+/* Hallmark · shape: app screen (catalog + record) · genre: modern-minimal · theme: Spotify Console (design.md locked, by request) · job: add to collection · scope: app · redesign: full
+ * hero: none (app shell; the catalog leads) · nav: masthead with search inline · footer: statement · imagery: Jikan key art in slot frames · surface: absolute (design.md pins #121212)
+ * palette: graphite ground + one green signal (design.md) · type: Plus Jakarta Sans, 400/700 · density: app range 32-40px controls
+ * redesign-before: 89 FAIL, 18 REFLEX, 11 WARN across 18 files, 3 routes · eyebrow on every section (54), mono labels as costume (64), emoji icon (30a), arrows glued to labels (63)
+ * v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H5 E4 S4 R4 V4 · weakest: S, a catalog is a category; the signature is the rank column and the dens poster grid set on the catalog, not a new metaphor */
+/* Hallmark · waive 7b · surface: absolute · design.md pins #121212 as the ground and the system is locked by request */
+/* Hallmark · waive 22 · surface: absolute · design.md keeps the greys achromatic and the key art is the only colour the catalogue carries */
+/* Hallmark · dropped onClick={pushSearch}, onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), pushSearch())} · the key handler lives on the search input's own form now, so pressing Enter submits. */
+/* Hallmark · dropped aria-label="Search anime" · the field is labelled in Indonesian now, "Cari anime", matching the rest of the copy. */
+/* Hallmark · reworded "Most Popular", "Recommended Anime", "Synopsis" to "Paling populer", "Rekomendasi", "Sinopsis" · 67 and the page's Indonesian voice: sentence case */
+/* Hallmark · reworded "850,000" to "850.000" · id-ID number grouping, so the figure reads in the page's own locale */
+/* Hallmark · reworded "Most Popular — Page N" to "Populer, halaman N" · 19: English head with a dash in an Indonesian page */
+/* Hallmark · dropped "Loading Content" heading · the loading state is a spinner and one word now */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 *, *::before, *::after {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    scroll-behavior: smooth;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
-img {
-    transition: 0.3s ease all;
-    -webkit-transition: 0.3s ease all;
-    -moz-transition: 0.3s ease all;
-    -ms-transition: 0.3s ease all;
-    -o-transition: 0.3s ease all;
+html {
+  overflow-x: clip;
+  scroll-behavior: smooth;
+  scrollbar-color: theme(colors.raised) theme(colors.ground);
 }
 
-img:hover {
-    scale: 102%;
+body {
+  overflow-x: clip;
+  background-color: theme(colors.ground);
+  color: theme(colors.ink);
+  font-size: 1rem;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  caret-color: theme(colors.accent);
 }
 
-.loading {
-    width: 69px;
-    height: 36px;
-    --c:radial-gradient(farthest-side,#5D737E 90%,#0000);
-    background:var(--c), var(--c), var(--c), var(--c);
-    background-size: 12px 12px;
-    background-repeat: no-repeat;
-    animation:d3 1s infinite linear; 
+::selection {
+  background-color: theme(colors.accent);
+  color: theme(colors.accentInk);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: theme(colors.ground);
+}
+::-webkit-scrollbar-thumb {
+  background: theme(colors.raised);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: theme(colors.rule);
+}
+
+h1, h2, h3 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+  min-width: 0;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+:focus-visible {
+  outline: 2px solid theme(colors.accent);
+  outline-offset: 2px;
+}
+
+/* a label: body face, a step smaller, sentence case, untracked (67) */
+.label {
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  color: theme(colors.muted);
+}
+
+/* one container, one max width */
+.shell {
+  width: 100%;
+  max-width: theme(maxWidth.shell);
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+@media (min-width: 1024px) {
+  .shell { padding-inline: 2.5rem; }
+}
+
+/* controls: app range, press and disabled present */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 2.5rem;
+  padding-inline: 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  transition-property: background-color, color, border-color, transform;
+  transition-duration: 120ms;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn:active { transform: translateY(1px); }
+.btn:disabled { opacity: 0.55; cursor: not-allowed; }
+.btn-primary { background-color: theme(colors.accent); color: theme(colors.accentInk); }
+.btn-primary:hover { background-color: theme(colors.accentHover); }
+.btn-secondary { background-color: transparent; color: theme(colors.ink); border-color: theme(colors.rule); }
+.btn-secondary:hover { border-color: theme(colors.ink2); background-color: theme(colors.surface); }
+.btn-ghost { background-color: theme(colors.surface); color: theme(colors.ink2); }
+.btn-ghost:hover { background-color: theme(colors.raised); color: theme(colors.ink); }
+
+/* a poster frame: one radius per level, the art fills it */
+.frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  background-color: theme(colors.surface);
+  isolation: isolate;
+}
+.frame img { width: 100%; height: 100%; object-fit: cover; }
+
+/* the catalog's rank column: figures that compare (39b, F6) */
+.rank {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: theme(colors.muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
-  
-  @keyframes d3 {
-    0%     {background-position: calc(0*100%/3) 50% ,calc(1*100%/3) 50% ,calc(2*100%/3) 50% ,calc(3*100%/3) 50% }
-    16.67% {background-position: calc(0*100%/3) 0   ,calc(1*100%/3) 50% ,calc(2*100%/3) 50% ,calc(3*100%/3) 50% }
-    33.33% {background-position: calc(0*100%/3) 100%,calc(1*100%/3) 0   ,calc(2*100%/3) 50% ,calc(3*100%/3) 50% }
-    50%    {background-position: calc(0*100%/3) 50% ,calc(1*100%/3) 100%,calc(2*100%/3) 0   ,calc(3*100%/3) 50% }
-    66.67% {background-position: calc(0*100%/3) 50% ,calc(1*100%/3) 50% ,calc(2*100%/3) 100%,calc(3*100%/3) 0   }
-    83.33% {background-position: calc(0*100%/3) 50% ,calc(1*100%/3) 50% ,calc(2*100%/3) 50% ,calc(3*100%/3) 100%}
-    100%   {background-position: calc(0*100%/3) 50% ,calc(1*100%/3) 50% ,calc(2*100%/3) 50% ,calc(3*100%/3) 50% }
-  }
-  
+}

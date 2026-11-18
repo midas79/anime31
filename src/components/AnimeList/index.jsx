@@ -2,40 +2,41 @@ import Image from "next/image";
 import Link from "next/link";
 
 const AnimeList = ({ api }) => {
+  if (!api?.data?.length) {
+    return <p className="text-center text-muted text-sm py-12 px-4">Tidak ada anime untuk ditampilkan.</p>;
+  }
   return (
-    <div className="grid justify-start grid-cols-2 gap-3 px-4 py-4 overflow-auto sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-      {api.data?.map((anime, index) => {
-        return (
+    <ol className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4 list-none">
+      {api.data.map((anime, index) => (
+        <li key={`${anime.mal_id}-${index}`} className="min-w-0">
           <Link
             href={`/anime/${anime.mal_id}`}
-            className="hover:scale-[100.5%] hover:shadow-lg transition-transform ease-in-out relative max-w-[300px] w-full mx-auto overflow-hidden noborder rounded-lg shadow-md bg-secondary"
-            key={index}
+            className="group block rounded-lg transition-colors duration-150 hover:bg-surface"
           >
-            <div className="relative overflow-hidden h-[250px] md:h-[420px]">
+            <div className="frame aspect-[3/4] w-full">
               <Image
                 src={anime.images.webp.image_url}
                 alt={anime.title}
-                layout="fill"
-                objectFit="cover"
-                className="object-cover transition-transform duration-300 group-hover:scale-110"
+                fill
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 16vw"
+                className="object-cover"
               />
+              {anime.score && (
+                <span className="num absolute top-2 left-2 bg-ground/80 text-ink text-xs font-bold px-1.5 py-0.5 rounded">
+                  {anime.score.toFixed(2)}
+                </span>
+              )}
             </div>
-            <div className="p-6">
-              <h3 className="text-md font-semibold text-primary text-center transition-colors duration-300 group-hover:text-blue-600">
-                {anime.title && anime.title.length >= 35
-                  ? `${anime.title.slice(0, 25)}...`
-                  : anime.title || "title not available."}
-              </h3>
-              <p className="mt-2 text-primary h-auto overflow-hidden text-ellipsis">
-                {anime.synopsis && anime.synopsis.length > 100
-                  ? `${anime.synopsis.slice(0, 90)}...`
-                  : anime.synopsis}
+            <div className="px-1 pt-2 pb-1">
+              <h3 className="text-sm font-bold leading-snug text-ink line-clamp-2">{anime.title}</h3>
+              <p className="label mt-0.5">
+                {anime.type || "TV"}{anime.year ? `, ${anime.year}` : ""}
               </p>
             </div>
           </Link>
-        );
-      })}
-    </div>
+        </li>
+      ))}
+    </ol>
   );
 };
 
